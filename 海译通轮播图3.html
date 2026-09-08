@@ -1,55 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-<title>定制各类程序</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>交易所定制</title>
 <style>
-:root{--bg:#050914;--gold:#ffbd52;--blue:#4aa7ff;--cyan:#49e5ff;--purple:#c86dff;--green:#6be8aa;--text:#f6f8fc;--muted:#9fb0c9}
-*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg);font-family:"Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif}a{text-decoration:none;color:inherit}
-.stage{position:relative;width:100vw;height:100vh;overflow:hidden;color:var(--text);background:radial-gradient(circle at 76% 44%,rgba(44,110,255,.25),transparent 28%),radial-gradient(circle at 25% 110%,rgba(137,57,255,.25),transparent 35%),radial-gradient(circle at 10% 0%,rgba(255,184,67,.08),transparent 24%),linear-gradient(135deg,#040711,#071226 52%,#030610)}
-.stage:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(63,133,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(63,133,255,.06) 1px,transparent 1px);background-size:30px 30px;mask-image:linear-gradient(to bottom,#000,transparent 95%)}
-.scan:before{content:"";position:absolute;left:-25%;top:-20%;width:35%;height:150%;background:linear-gradient(90deg,transparent,rgba(91,169,255,.08),transparent);transform:skewX(-16deg);animation:sweep 7s linear infinite}@keyframes sweep{to{left:125%}}
-.layout{position:relative;z-index:2;width:100%;height:100%;padding:3.2vh 2vw 2.4vh;display:grid;grid-template-columns:58% 42%;gap:1.7vw}.left{min-width:0;display:flex;flex-direction:column}.title{margin:0;font-size:clamp(28px,5vw,78px);line-height:.98;font-weight:900;white-space:nowrap;letter-spacing:.03em;background:linear-gradient(90deg,#ffd891 0%,#ffb63e 18%,#f8fbff 48%,#cfe4ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 5px 14px rgba(68,132,255,.18))}.title-line{height:2px;width:76%;margin:1.2vh 0 1.6vh;background:linear-gradient(90deg,transparent,#ffbc4c 15%,#fff 50%,#4aa7ff 78%,transparent);box-shadow:0 0 12px rgba(255,190,82,.65)}.subtitle{font-size:clamp(11px,1.5vw,23px);font-weight:600;letter-spacing:.34em;color:#d7dfeb;margin-bottom:2vh;white-space:nowrap}
-.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,1fr);gap:1.1vh .8vw;flex:1;min-height:0}.card{--accent:#4aa7ff;position:relative;overflow:hidden;display:flex;align-items:center;gap:.65vw;padding:0 .8vw;border-radius:11px;background:linear-gradient(180deg,rgba(15,31,58,.88),rgba(5,15,33,.78));border:1px solid var(--accent);box-shadow:inset 0 0 22px color-mix(in srgb,var(--accent) 8%,transparent),0 0 15px color-mix(in srgb,var(--accent) 12%,transparent);transition:.22s}.card:hover{transform:translateY(-2px);box-shadow:0 0 22px color-mix(in srgb,var(--accent) 28%,transparent)}.card:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 70%);transform:translateX(-120%);transition:.5s}.card:hover:after{transform:translateX(120%)}.icon{flex:0 0 auto;width:clamp(23px,2.7vw,42px);height:clamp(23px,2.7vw,42px);display:grid;place-items:center;border-radius:9px;background:color-mix(in srgb,var(--accent) 8%,transparent);color:var(--accent);box-shadow:0 0 16px color-mix(in srgb,var(--accent) 15%,transparent)}.icon svg{width:72%;height:72%;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.card span{position:relative;z-index:1;font-size:clamp(10px,1.25vw,19px);font-weight:800;color:color-mix(in srgb,var(--accent) 76%,white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gold{--accent:#ffbd52}.blue{--accent:#4aa7ff}.purple{--accent:#c86dff}.orange{--accent:#ff9f45}.cyan{--accent:#49e5ff}.green{--accent:#6be8aa}
-.right{min-width:0;display:grid;grid-template-rows:1fr auto;gap:1.45vh}.visual{position:relative;min-height:0;border-radius:18px;overflow:hidden;border:1px solid rgba(84,145,255,.18);background:linear-gradient(180deg,rgba(10,25,57,.38),rgba(4,9,24,.14));box-shadow:inset 0 0 34px rgba(38,93,255,.09)}
-.visual:after{content:"";position:absolute;left:8%;right:8%;bottom:2%;height:12%;border:1px solid rgba(73,157,255,.6);border-radius:50%;box-shadow:0 0 26px #2874ff,inset 0 0 20px rgba(43,112,255,.35);animation:pulse 2.8s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.03);filter:brightness(1.25)}}
-/* trading terminal */.terminal{position:absolute;left:5%;top:8%;width:58%;height:56%;padding:4% 4.5%;border:1px solid rgba(76,153,255,.55);border-radius:15px;background:linear-gradient(180deg,rgba(14,32,72,.82),rgba(5,14,35,.65));box-shadow:0 0 30px rgba(40,109,255,.22),inset 0 0 24px rgba(66,128,255,.08);transform:perspective(650px) rotateY(-5deg)}.terminal-head{display:flex;align-items:center;gap:5px;margin-bottom:7%}.terminal-head i{width:7px;height:7px;border-radius:50%;background:#4ea8ff;box-shadow:0 0 8px currentColor}.terminal-head i:nth-child(2){background:#c96dff}.terminal-head i:nth-child(3){background:#ffbd52}.terminal-title{margin-left:auto;font-size:clamp(7px,.62vw,10px);color:#83b8ff;letter-spacing:.12em}.candles{position:absolute;left:7%;right:7%;bottom:12%;top:24%;display:flex;align-items:flex-end;gap:3.2%}.candle{position:relative;width:5%;height:var(--h);background:var(--c);box-shadow:0 0 8px color-mix(in srgb,var(--c) 55%,transparent);border-radius:1px}.candle:before{content:"";position:absolute;left:50%;top:-18%;height:136%;width:1px;background:var(--c);transform:translateX(-50%)}
-/* ticker chips */.ticker{position:absolute;padding:.48vh .55vw;border:1px solid rgba(87,158,255,.45);border-radius:7px;background:rgba(5,15,35,.84);font-size:clamp(7px,.72vw,11px);font-weight:700;letter-spacing:.04em;box-shadow:0 0 14px rgba(56,122,255,.18);white-space:nowrap}.ticker b{margin-left:.35vw}.ticker.gold-t{left:4%;bottom:27%;color:#ffd276}.ticker.fx-t{left:30%;bottom:18%;color:#77c3ff}.ticker.crypto-t{left:53%;bottom:30%;color:#ffb15f}
-/* code card */.code-card{position:absolute;right:5%;top:8%;width:29%;height:36%;border:1px solid rgba(112,105,255,.58);border-radius:11px;padding:8% 8%;background:linear-gradient(180deg,rgba(28,21,76,.80),rgba(8,17,41,.68));box-shadow:0 0 18px rgba(101,83,255,.18)}.code-card:before{content:"</>";position:absolute;right:8%;top:6%;font-size:clamp(8px,.8vw,12px);font-weight:800;color:#65baff}.line{height:4px;margin:7% 0;border-radius:4px;background:linear-gradient(90deg,#5bb8ff,#9c6eff 58%,transparent)}.line:nth-child(2n){width:72%}.line:nth-child(3n){width:45%;background:linear-gradient(90deg,#ffb753,#ce6bff,transparent)}
-/* translation bubble */.translate-box{position:absolute;right:5%;top:48%;width:32%;height:24%;border:1px solid rgba(74,229,255,.48);border-radius:11px;padding:7% 8%;background:linear-gradient(180deg,rgba(7,48,67,.72),rgba(6,16,39,.72));box-shadow:0 0 18px rgba(73,229,255,.14)}.bubble{font-size:clamp(7px,.72vw,11px);line-height:1.25;color:#c9f8ff}.bubble+.bubble{margin-top:7%;padding-top:7%;border-top:1px dashed rgba(114,230,255,.35);color:#88f0ff}.translate-tag{position:absolute;right:8%;top:7%;font-size:clamp(7px,.62vw,9px);color:#70e7ff}
-/* funnel / leads */.lead-flow{position:absolute;left:66%;bottom:7%;width:28%;height:19%;display:flex;align-items:center;justify-content:center;gap:9%}.person{width:18%;aspect-ratio:1;border:1px solid #49e5ff;border-radius:50%;box-shadow:0 0 10px rgba(73,229,255,.25)}.funnel{width:30%;height:60%;clip-path:polygon(0 0,100% 0,66% 48%,66% 100%,34% 100%,34% 48%);background:linear-gradient(180deg,#65efb3,#2fae77);box-shadow:0 0 12px rgba(101,239,179,.28)}.arrow{font-size:clamp(9px,1vw,15px);color:#6be8aa}
-.contact{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:1vw;padding:1.5vh 1.15vw;border-radius:15px;border:1px solid rgba(111,108,255,.75);background:linear-gradient(90deg,rgba(16,45,103,.88),rgba(33,18,78,.92));box-shadow:0 0 22px rgba(61,115,255,.28),inset 0 0 26px rgba(97,74,255,.12)}.mail{width:clamp(34px,4.5vw,68px);height:clamp(34px,4.5vw,68px);display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#f7fbff,#6ca7ff);box-shadow:0 0 18px rgba(104,165,255,.65)}.mail svg{width:64%;height:64%;stroke:#174a9c;fill:none;stroke-width:2}.contact-text{min-width:0}.contact-line{font-size:clamp(10px,1.25vw,20px);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.contact-line b{color:#ffd07a}.cheap{margin-top:.35vh;font-size:clamp(9px,1.05vw,17px);font-weight:800;color:#f5f7ff;letter-spacing:.12em}
-@media(max-width:720px){.layout{grid-template-columns:61% 39%;gap:1.2vw;padding-left:1.5vw;padding-right:1.5vw}.cards{gap:.9vh .6vw}.card{padding:0 .55vw}.card span{font-size:clamp(9px,1.55vw,13px)}.subtitle{letter-spacing:.18em}.contact{gap:.6vw;padding-left:.8vw;padding-right:.8vw}}
+  html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    background: #000;
+  }
+  body {
+    overflow-x: hidden;
+  }
+  .page {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background: #000;
+  }
+  .poster {
+    display: block;
+    width: 100%;
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  @media (min-aspect-ratio: 1792/878) {
+    .page {
+      align-items: center;
+    }
+    .poster {
+      width: auto;
+      height: 100vh;
+      max-width: 100vw;
+      object-fit: contain;
+    }
+  }
 </style>
 </head>
 <body>
-<div class="stage"><div class="scan"></div><main class="layout">
-<section class="left">
-<h1 class="title">定制各类程序</h1><div class="title-line"></div><div class="subtitle">稳定 · 高效 · 专业定制</div>
-<div class="cards">
-<div class="card gold"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 16h6l-2-5H6l-2 5Zm10 0h6l-2-5h-2l-2 5ZM9 9h6l-2-5h-2L9 9Z"/></svg></div><span>黄金盘</span></div>
-<div class="card blue"><div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4 6 4 9s-1 6-4 9c-3-3-4-6-4-9s1-6 4-9Z"/></svg></div><span>外汇盘</span></div>
-<div class="card purple"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 18V9m5 9V5m5 13v-7m5 7V3M3 16l5-4 5 2 7-8"/></svg></div><span>股票盘</span></div>
-<div class="card orange"><div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 7h4.5a2.5 2.5 0 0 1 0 5H9m0 0h5a2.5 2.5 0 0 1 0 5H9m2-12v14m3-14v2m0 10v2"/></svg></div><span>加密货币盘</span></div>
-<div class="card cyan"><div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6 20c0-4 2-6 6-6s6 2 6 6M3 6V3h3m12 0h3v3M3 18v3h3m12 0h3v-3"/></svg></div><span>扒粉程序</span></div>
-<div class="card green"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 5h16l-6 7v5l-4 2v-7L4 5Z"/><circle cx="18" cy="18" r="2"/></svg></div><span>筛粉程序</span></div>
-<div class="card purple"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 4h11v10H9l-4 4v-4H4V4Z"/><path d="M12 8h8v9h-3l-3 3v-3h-2"/><path d="M7 7h5m-2-2v5"/></svg></div><span>海外翻译程序</span></div>
-<div class="card blue"><div class="icon"><svg viewBox="0 0 24 24"><path d="m8 8-4 4 4 4m8-8 4 4-4 4m-5 3 3-14"/></svg></div><span>各类脚本</span></div>
-</div>
-</section>
-<section class="right">
-<div class="visual">
-  <div class="terminal"><div class="terminal-head"><i></i><i></i><i></i><span class="terminal-title">MARKET ENGINE</span></div><div class="candles">
-    <span class="candle" style="--h:28%;--c:#ff7070"></span><span class="candle" style="--h:38%;--c:#52e3a4"></span><span class="candle" style="--h:34%;--c:#ff7070"></span><span class="candle" style="--h:49%;--c:#52e3a4"></span><span class="candle" style="--h:44%;--c:#52e3a4"></span><span class="candle" style="--h:61%;--c:#52e3a4"></span><span class="candle" style="--h:56%;--c:#ff7070"></span><span class="candle" style="--h:72%;--c:#52e3a4"></span><span class="candle" style="--h:68%;--c:#ff7070"></span><span class="candle" style="--h:83%;--c:#52e3a4"></span><span class="candle" style="--h:91%;--c:#52e3a4"></span>
-  </div></div>
-  <div class="ticker gold-t">XAU/USD <b>▲</b></div><div class="ticker fx-t">EUR/USD <b>LIVE</b></div><div class="ticker crypto-t">BTC/USDT <b>24H</b></div>
-  <div class="code-card"><div class="line" style="width:86%"></div><div class="line"></div><div class="line"></div><div class="line" style="width:62%"></div><div class="line"></div></div>
-  <div class="translate-box"><span class="translate-tag">AI TRANSLATE</span><div class="bubble">Hello, how are you?</div><div class="bubble">你好，你最近怎么样？</div></div>
-  <div class="lead-flow"><div class="person"></div><span class="arrow">→</span><div class="funnel"></div><span class="arrow">→</span><div class="person"></div></div>
-</div>
-<a class="contact" href="mailto:zhongdongahe@gmail.com"><div class="mail"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></div><div class="contact-text"><div class="contact-line">联系邮箱：<b>zhongdongahe@gmail.com</b></div><div class="cheap">（物美价廉）</div></div></a>
-</section>
-</main></div>
+  <main class="page">
+    <img class="poster" src="assets/trading-poster.png" alt="交易所定制">
+  </main>
 </body>
 </html>
